@@ -1,7 +1,7 @@
 # ActionBarProfiles
 Vanilla WoW addon that saves and restores layout of one's action bars.
 
-Created by Threewords of <Vanguard>
+`Created by Threewords of the guild "Vanguard"`
 
 ## Usage
 
