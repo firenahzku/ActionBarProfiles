@@ -1,0 +1,84 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Button name="ActionBarProfiles_IconFrame" hidden="false" enableMouse="true" parent="Minimap" toplevel="true">
+		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+		<Size>
+			<AbsDimension x="33" y="33"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="Minimap" relativePoint="TOPLEFT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="ActionBarProfiles_IconTexture" file="Interface\AddOns\ActionBarProfiles\Images\abp">
+					<Size>
+						<AbsDimension x="28" y="28"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		
+		<Frames>
+			<Frame name="ABP_DropDownMenu" inherits="UIDropDownMenuTemplate"/>
+		</Frames>
+		
+		<Scripts>
+			<OnLoad>
+				ABP_OnLoad();
+				this:RegisterForDrag("RightButton");
+				this.dragme = false;
+			</OnLoad>
+			<OnEvent>
+				ABP_OnEvent();
+			</OnEvent>
+			<OnClick>
+				ABP_OnClick();
+			</OnClick>
+			<OnUpdate>
+				if(this.dragme == true) then
+					ABPButton_BeingDragged();
+				end
+			</OnUpdate>
+ 			<OnDragStart>
+				this.dragme = true;
+			</OnDragStart>
+			<OnDragStop>
+				this.dragme = false;
+			</OnDragStop>
+			<OnEnter>
+				GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+				GameTooltip:SetText( "ActionBarProfiles" );
+				GameTooltip:AddLine( "Right-click and drag to move this button." );
+				GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+				GameTooltip:Show();
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+	   </Scripts>
+	</Button>
+	
+	<GameTooltip name="ABP_Tooltip" inherits="GameTooltipTemplate">
+		<Anchors>
+			<Anchor point="BOTTOM" relativePoint="TOP">
+				<Offset><AbsDimension x="0" y="100"/></Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<Onload>
+				this:SetOwner(this, "ANCHOR_NONE");
+			</Onload>
+		</Scripts>
+	</GameTooltip>
+</Ui>
